@@ -13,6 +13,7 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>common</module>
     <module>openfegin-spring-cloud-starter</module>
   </modules>
 </project>

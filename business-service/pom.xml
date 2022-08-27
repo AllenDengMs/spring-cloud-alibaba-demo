@@ -13,7 +13,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>business-service-model</module>
-    <module>business-service-api</module>
     <module>order-micro-service</module>
   </modules>
 

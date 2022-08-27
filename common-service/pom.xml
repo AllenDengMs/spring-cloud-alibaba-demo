@@ -13,7 +13,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>common-service-model</module>
-    <module>common-service-api</module>
     <module>user-micro-service</module>
   </modules>
 

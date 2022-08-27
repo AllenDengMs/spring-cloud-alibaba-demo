@@ -13,13 +13,17 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.backend.cloud</groupId>
-      <artifactId>common-service-api</artifactId>
-      <version>${project.version}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
       <groupId>org.backend.cloud</groupId>
       <artifactId>user-service-model</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.backend.cloud</groupId>
+      <artifactId>common</artifactId>
       <version>${project.version}</version>
     </dependency>
 
