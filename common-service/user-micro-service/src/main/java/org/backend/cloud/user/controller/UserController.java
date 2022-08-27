@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
   @GetMapping("/{userId}")
-  public Map<String, Object> getUser(@PathVariable String userId) {
+  public Map<String, Object> getUser(@RequestHeader(required = false, name = "token") String token,
+      @PathVariable String userId) {
     Map<String, Object> response = new HashMap<>();
     response.put("userId", userId);
     response.put("userName", "张三");
+    System.out.println("token: " + token);
     return response;
   }
 
