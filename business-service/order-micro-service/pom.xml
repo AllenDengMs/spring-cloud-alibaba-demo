@@ -13,16 +13,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <!--
-      使用feign代替RestTemplate向其他微服务发起请求
-      文档：https://docs.spring.io/spring-cloud-openfeign/docs/2.2.10.RELEASE/reference/html/#spring-cloud-feign
-    -->
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-openfeign</artifactId>
+      <groupId>org.backend.cloud</groupId>
+      <artifactId>openfegin-spring-cloud-starter</artifactId>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>

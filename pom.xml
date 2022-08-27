@@ -10,6 +10,8 @@
   <modules>
     <module>common-service</module>
     <module>business-service</module>
+    <module>freamwork-common</module>
+    <module>freamwork-common/openfegin-spring-cloud-starter</module>
   </modules>
   <packaging>pom</packaging>
 
