@@ -8,10 +8,9 @@
   <artifactId>spirng-cloud-project-parent</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <modules>
+    <module>freamwork-common</module>
     <module>common-service</module>
     <module>business-service</module>
-    <module>freamwork-common</module>
-    <module>freamwork-common/openfegin-spring-cloud-starter</module>
   </modules>
   <packaging>pom</packaging>
 

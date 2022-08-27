@@ -10,17 +10,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>order-micro-service</artifactId>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.backend.cloud</groupId>
-      <artifactId>openfegin-spring-cloud-starter</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.alibaba.cloud</groupId>
-      <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-    </dependency>
-  </dependencies>
+  <packaging>pom</packaging>
+  <modules>
+    <module>order-service-model</module>
+    <module>order-service-api</module>
+    <module>order-service-server</module>
+  </modules>
 </project>

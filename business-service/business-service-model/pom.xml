@@ -3,18 +3,18 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <artifactId>spirng-cloud-project-parent</artifactId>
+    <artifactId>business-service</artifactId>
     <groupId>org.backend.cloud</groupId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>business-service</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-    <module>business-service-model</module>
-    <module>business-service-api</module>
-    <module>order-micro-service</module>
-  </modules>
+  <artifactId>business-service-model</artifactId>
+
+  <properties>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
 </project>

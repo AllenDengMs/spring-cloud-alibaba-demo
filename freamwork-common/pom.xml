@@ -12,4 +12,7 @@
   <artifactId>freamwork-common</artifactId>
   <packaging>pom</packaging>
 
+  <modules>
+    <module>openfegin-spring-cloud-starter</module>
+  </modules>
 </project>
