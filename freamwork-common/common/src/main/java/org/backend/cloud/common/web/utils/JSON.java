@@ -1,8 +1,5 @@
 package org.backend.cloud.common.web.utils;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import java.io.IOException;
@@ -13,30 +10,30 @@ public class JSON {
   private static ObjectMapper mapper = new ObjectMapper();
 
   /**
-   * Java对象序列化成JSON字符串
+   * Object to json
    * @param obj
    * @return
    */
-  public static String toJson(Object obj){
-    String json = null;
+  public static String stringify(Object obj){
     try {
-      json = mapper.writeValueAsString(obj);
-    } catch (JsonGenerationException e) {
-      e.printStackTrace();
-    } catch (JsonMappingException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
+      return mapper.writeValueAsString(obj);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("对象转化成json字符串出错", e);
     }
-    return json;
   }
 
-  public static <T> T jsonToObject(String jsonStr, Type targetType) {
+  /**
+   * json to Object
+   * @param json
+   * @param targetType
+   * @return
+   * @param <T>
+   */
+  public static <T> T parse(String json, Type targetType) {
     try {
-      JavaType javaType = TypeFactory.defaultInstance().constructType(targetType);
-      return mapper.readValue(jsonStr, javaType);
+      return mapper.readValue(json, TypeFactory.defaultInstance().constructType(targetType));
     } catch (IOException e) {
-      throw new IllegalArgumentException("将JSON转换为对象时发生错误:" + jsonStr, e);
+      throw new IllegalArgumentException("将JSON转换为对象时发生错误:" + json, e);
     }
   }
 }

@@ -3,3 +3,10 @@ server:
 logging:
   level:
     root: info
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: classpath:pub2.key
+

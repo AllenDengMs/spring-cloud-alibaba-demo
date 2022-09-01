@@ -20,7 +20,7 @@ public class FeignResultDecoder implements Decoder {
     }
     String bodyStr = Util.toString(response.body().asReader(Util.UTF_8));
     //对结果进行转换
-    Result result = JSON.jsonToObject(bodyStr, Result.class);
-    return JSON.jsonToObject(JSON.toJson(result.getData()), type);
+    Result result = JSON.parse(bodyStr, Result.class);
+    return JSON.parse(JSON.stringify(result.getData()), type);
   }
 }

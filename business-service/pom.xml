@@ -12,7 +12,6 @@
   <artifactId>business-service</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>business-service-model</module>
     <module>order-micro-service</module>
   </modules>
 

@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.backend.cloud.authorization.config.CustomResourceServerSecurityAutoConfiguration

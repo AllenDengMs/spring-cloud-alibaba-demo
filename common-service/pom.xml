@@ -12,8 +12,9 @@
   <artifactId>common-service</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>common-service-model</module>
     <module>user-micro-service</module>
+    <module>uaa-micro-service</module>
+    <module>api-gateway-micro-service</module>
   </modules>
 
 </project>

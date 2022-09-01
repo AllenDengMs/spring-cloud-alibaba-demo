@@ -3,20 +3,24 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <artifactId>common-service</artifactId>
+    <artifactId>uaa-micro-service</artifactId>
     <groupId>org.backend.cloud</groupId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>common-service-model</artifactId>
+  <artifactId>authorization-client</artifactId>
+  <description>授权客户端</description>
 
   <dependencies>
     <dependency>
-      <groupId>org.backend.cloud</groupId>
-      <artifactId>user-service-model</artifactId>
-      <version>${project.version}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
     </dependency>
   </dependencies>
-
 </project>
