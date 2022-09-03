@@ -1,4 +1,4 @@
-package org.backend.cloud.common.web.utils;
+package org.backend.cloud.common.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;

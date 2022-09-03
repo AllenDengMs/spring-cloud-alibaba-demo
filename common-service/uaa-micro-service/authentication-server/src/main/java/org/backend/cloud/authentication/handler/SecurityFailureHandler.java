@@ -29,7 +29,7 @@ public class SecurityFailureHandler implements AuthenticationFailureHandler {
         log.info("登录失败,{}", exception.getMessage());
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         PrintWriter writer = response.getWriter();
-        writer.print(JSON.toJSONString(Result.ok(400, exception.getMessage())));
+        writer.print(JSON.toJSONString(Result.success(400, exception.getMessage())));
         writer.flush();
         writer.close();
     }

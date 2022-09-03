@@ -8,7 +8,7 @@ import feign.codec.Decoder;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import org.backend.cloud.common.web.model.Result;
-import org.backend.cloud.common.web.utils.JSON;
+import org.backend.cloud.common.utils.JSON;
 
 public class FeignResultDecoder implements Decoder {
 

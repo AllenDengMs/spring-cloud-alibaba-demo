@@ -29,7 +29,7 @@ public class EntryPoint implements AuthenticationEntryPoint {
         String error = "请求Url:" + request.getRequestURI() + " 认证失败:" + authException.getMessage();
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         PrintWriter writer = response.getWriter();
-        writer.print(JSON.toJSONString(Result.ok(HttpStatus.UNAUTHORIZED.value(), error)));
+        writer.print(JSON.toJSONString(Result.success(HttpStatus.UNAUTHORIZED.value(), error)));
         writer.flush();
         writer.close();
     }

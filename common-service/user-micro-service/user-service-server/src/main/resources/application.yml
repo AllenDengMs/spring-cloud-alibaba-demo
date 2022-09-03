@@ -1,2 +1,9 @@
 server:
   port: 8099
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          public-key-location: classpath:pub.key

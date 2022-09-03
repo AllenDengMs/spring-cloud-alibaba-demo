@@ -27,7 +27,7 @@ public class DeniedHandler implements AccessDeniedHandler {
         String error = "请求Url:" + request.getRequestURI() + " 鉴权失败:" + accessDeniedException.getMessage();
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         PrintWriter writer = response.getWriter();
-        writer.print(JSON.toJSONString(Result.ok(HttpStatus.UNAUTHORIZED.value(), error)));
+        writer.print(JSON.toJSONString(Result.success(HttpStatus.UNAUTHORIZED.value(), error)));
         writer.flush();
         writer.close();
     }

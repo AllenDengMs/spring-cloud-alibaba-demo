@@ -44,17 +44,11 @@ public class CustomizedFeignAutoConfiguration {
         HttpServletRequest request = attrs.getRequest();
         Enumeration<String> headerNames = request.getHeaderNames();
         if (headerNames != null) {
+          // 遍历请求头里面的属性字段，token添加到新的请求头中转发到下游服务
           while (headerNames.hasMoreElements()) {
             String name = headerNames.nextElement();
             String value = request.getHeader(name);
-            // 遍历请求头里面的属性字段，token添加到新的请求头中转发到下游服务
-            if ("token".equalsIgnoreCase(name)) {
-              logger.debug("添加自定义请求头key:" + name + ",value:" + value);
-              requestTemplate.header(name, value);
-            } else {
-              logger.debug("FeignHeadConfiguration: " +
-                  "非自定义请求头key:" + name + ",value:" + value + "不需要添加!");
-            }
+            requestTemplate.header(name, value);
           }
         } else {
           logger.warn("FeignHeadConfiguration: " + "获取请求头失败！");

@@ -1,7 +1,6 @@
 package org.backend.cloud.common.web.model;
 
 import java.io.Serializable;
-import org.backend.cloud.common.web.constant.HttpStatus;
 
 /**
  * 响应信息主体
@@ -10,70 +9,65 @@ import org.backend.cloud.common.web.constant.HttpStatus;
  */
 public class Result<T> implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = -6149948941889889657L;
+  public static final int SUCCESS_STATUS = 1;
+  public static final int FAIL_STATUS = 0;
 
-  /**
-   * 成功
-   */
-  public static final int SUCCESS = HttpStatus.SUCCESS;
-
-  /**
-   * 失败
-   */
-  public static final int FAIL = HttpStatus.ERROR;
-
-  private int code;
-
+  private String code;
+  private int status;
   private String msg;
-
   private T data;
 
-  public static <T> Result<T> ok() {
-    return restResult(null, SUCCESS, "操作成功");
+
+  public static <T> Result<T> success(T data) {
+    return ResultBuilder.aResult()
+        .data(data)
+        .status(SUCCESS_STATUS)
+        .msg("success")
+        .build();
   }
 
-  public static <T> Result<T> ok(T data) {
-    return restResult(data, SUCCESS, "操作成功");
-  }
-
-  public static <T> Result<T> ok(T data, String msg) {
-    return restResult(data, SUCCESS, msg);
-  }
-
-  public static <T> Result<T> fail() {
-    return restResult(null, FAIL, "操作失败");
+  public static <T> Result<T> success(T data, String msg) {
+    return ResultBuilder.aResult()
+        .data(data)
+        .status(SUCCESS_STATUS)
+        .msg(msg)
+        .build();
   }
 
   public static <T> Result<T> fail(String msg) {
-    return restResult(null, FAIL, msg);
+    return ResultBuilder.aResult()
+        .data(null)
+        .status(FAIL_STATUS)
+        .msg(msg)
+        .build();
   }
 
   public static <T> Result<T> fail(T data) {
-    return restResult(data, FAIL, "操作失败");
+    return ResultBuilder.aResult()
+        .data(data)
+        .status(FAIL_STATUS)
+        .msg("fail")
+        .build();
   }
 
-  public static <T> Result<T> fail(T data, String msg) {
-    return restResult(data, FAIL, msg);
+  public Result() {
   }
 
-  public static <T> Result<T> fail(int code, String msg) {
-    return restResult(null, code, msg);
-  }
-
-  private static <T> Result<T> restResult(T data, int code, String msg) {
-    Result<T> apiResult = new Result<>();
-    apiResult.setCode(code);
-    apiResult.setData(data);
-    apiResult.setMsg(msg);
-    return apiResult;
-  }
-
-  public int getCode() {
+  public String getCode() {
     return code;
   }
 
-  public void setCode(int code) {
+  public void setCode(String code) {
     this.code = code;
+  }
+
+  public int getStatus() {
+    return status;
+  }
+
+  public void setStatus(int status) {
+    this.status = status;
   }
 
   public String getMsg() {

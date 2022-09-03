@@ -21,7 +21,6 @@ public class OrderController {
     SimpleOrder order = new SimpleOrder();
     order.setOrderId(orderId);
     order.setItemName("Iphone 14");
-
     SimpleUser user = userServiceClient.getUser("1");
     order.setBuyerUserId(user.getUserId());
     order.setBuyerName(user.getNickname());

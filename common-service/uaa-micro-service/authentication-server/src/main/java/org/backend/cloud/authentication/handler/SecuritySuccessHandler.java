@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.backend.cloud.authentication.model.SystemUserDetails;
 import org.backend.cloud.common.web.model.Result;
-import org.backend.cloud.common.web.utils.JSON;
+import org.backend.cloud.common.utils.JSON;
 import org.backend.cloud.model.user.dto.UsernameAndPasswordDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,10 +45,11 @@ public class SecuritySuccessHandler implements AuthenticationSuccessHandler {
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) throws IOException {
 
-    // 保存登录信息到Redis
+    // 保存登录信息到Redis(面向用户时，使用有状态的登录)。
     SystemUserDetails userDetails = (SystemUserDetails) authentication.getPrincipal();
     String token = userDetails.getUser().getUserId().toString();
     String key = new StringBuffer("user").append(":").append(token).toString();
+    // 生成一份jwt，用于资源服务器的授权。
     String jwt = toJwt(userDetails);
     redisTemplate.opsForValue().set(key, jwt);
 
@@ -56,9 +57,9 @@ public class SecuritySuccessHandler implements AuthenticationSuccessHandler {
     response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     Map<String, Object> responseData = new LinkedHashMap<>();
     responseData.put("username", userDetails.getUsername());
-    responseData.put("token", jwt);
+    responseData.put("jws", jwt);
     PrintWriter writer = response.getWriter();
-    writer.print(JSON.stringify(Result.ok(responseData, "登录成功")));
+    writer.print(JSON.stringify(Result.success(responseData, "登录成功")));
     writer.flush();
     writer.close();
   }
