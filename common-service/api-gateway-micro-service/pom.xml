@@ -12,6 +12,16 @@
   <artifactId>api-gateway-micro-service</artifactId>
 
   <dependencies>
+    <dependency>
+      <groupId>org.backend.cloud</groupId>
+      <artifactId>authentication-model</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.backend.cloud</groupId>
+      <artifactId>cache-starter</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <!--网关-->
     <dependency>
       <groupId>org.springframework.cloud</groupId>

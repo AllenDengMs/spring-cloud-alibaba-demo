@@ -13,8 +13,10 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>common</module>
+    <module>project-commons</module>
     <module>openfegin-spring-cloud-starter</module>
     <module>web-application-starter</module>
+    <module>mysql-boot-starter</module>
+    <module>cache-starter</module>
   </modules>
 </project>

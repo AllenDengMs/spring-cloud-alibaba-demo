@@ -37,6 +37,9 @@
     <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
 
     <jjwt.version>0.11.5</jjwt.version>
+    <mybatis-plus.version>3.5.2</mybatis-plus.version>
+    <druid.version>1.2.11</druid.version>
+    <HikariCP.version>3.4.3</HikariCP.version>
   </properties>
 
   <dependencyManagement>
@@ -93,6 +96,22 @@
         <groupId>io.jsonwebtoken</groupId>
         <artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson if Gson is preferred -->
         <version>${jjwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.baomidou</groupId>
+        <artifactId>mybatis-plus-boot-starter</artifactId>
+        <version>${mybatis-plus.version}</version>
+      </dependency>
+      <!-- 阿里数据库连接池 -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+        <version>${druid.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.zaxxer</groupId>
+        <artifactId>HikariCP</artifactId>
+        <version>${HikariCP.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

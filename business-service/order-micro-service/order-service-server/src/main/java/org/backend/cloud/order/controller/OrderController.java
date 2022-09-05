@@ -1,8 +1,10 @@
 package org.backend.cloud.order.controller;
 
 import org.backend.cloud.api.client.user.UserServiceClient;
+import org.backend.cloud.authorization.utils.CurrentUserInfo;
+import org.backend.cloud.common.utils.JSON;
 import org.backend.cloud.model.order.dto.SimpleOrder;
-import org.backend.cloud.model.user.dto.SimpleUser;
+import org.backend.cloud.model.user.entity.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,9 +23,11 @@ public class OrderController {
     SimpleOrder order = new SimpleOrder();
     order.setOrderId(orderId);
     order.setItemName("Iphone 14");
-    SimpleUser user = userServiceClient.getUser("1");
+    SystemUser user = userServiceClient.getSystemUserById("1");
     order.setBuyerUserId(user.getUserId());
-    order.setBuyerName(user.getNickname());
+    order.setBuyerName(user.getNickName());
+
+    System.out.println(JSON.stringify(CurrentUserInfo.getUser()));
     return order;
   }
 

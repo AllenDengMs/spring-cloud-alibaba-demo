@@ -3,7 +3,7 @@ package org.backend.cloud.authentication.model;
 import java.util.Collection;
 import lombok.Getter;
 import lombok.Setter;
-import org.backend.cloud.model.user.dto.UsernameAndPasswordDto;
+import org.backend.cloud.model.user.entity.SystemUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -37,13 +37,13 @@ public class SystemUserDetails implements UserDetails {
 
   @Getter
   @Setter
-  private UsernameAndPasswordDto user;
+  private SystemUser user;
 
   public SystemUserDetails() {
     super();
   }
 
-  public SystemUserDetails(String username, String password, UsernameAndPasswordDto user,
+  public SystemUserDetails(String username, String password, SystemUser user,
       Collection<? extends GrantedAuthority> authorities) {
     this.username = username;
     this.password = password;
@@ -68,7 +68,7 @@ public class SystemUserDetails implements UserDetails {
 
   @Override
   public boolean isAccountNonExpired() {
-    // 账户是否过期
+    // 账户未过期
     return true;
   }
 
@@ -86,7 +86,7 @@ public class SystemUserDetails implements UserDetails {
 
   @Override
   public boolean isEnabled() {
-    // 账户是否停用
+    // 账户可用
     return true;
   }
 }

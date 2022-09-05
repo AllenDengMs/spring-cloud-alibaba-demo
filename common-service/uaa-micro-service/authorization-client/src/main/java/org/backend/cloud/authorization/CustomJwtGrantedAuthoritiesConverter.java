@@ -1,25 +1,26 @@
-package org.backend.cloud.authorization.config;
+package org.backend.cloud.authorization;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-
+import java.util.Map;
+import java.util.Objects;
+import org.backend.cloud.authorization.utils.CurrentUserInfo;
+import org.backend.cloud.common.utils.JSON;
+import org.backend.cloud.model.user.dto.UserLoginInfo;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * Extracts the {@link GrantedAuthority}s from scope attributes typically found in a
- * {@link Jwt}.
- *
- * @author Eric Deandrea
- * @since 5.2
+ * 直接拷贝 {@link JwtGrantedAuthoritiesConverter} 去掉了无用的数据校验。
  */
-public final class MyJwtGrantedAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
+public final class CustomJwtGrantedAuthoritiesConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
 	private static final String DEFAULT_AUTHORITY_PREFIX = "SCOPE_";
 
 	private static final Collection<String> WELL_KNOWN_AUTHORITIES_CLAIM_NAMES =
@@ -41,12 +42,23 @@ public final class MyJwtGrantedAuthoritiesConverter implements Converter<Jwt, Co
 		for (String authority : getAuthorities(jwt)) {
 			grantedAuthorities.add(new SimpleGrantedAuthority(this.authorityPrefix + authority));
 		}
+		Map<String, Object> claims = jwt.getClaims();
+
+		if (Objects.nonNull(claims)) {
+			UserLoginInfo user = UserLoginInfo.builder()
+					.userId(Long.valueOf(claims.get("userId").toString()))
+					.nickName(claims.get("userId").toString())
+					.userName(claims.get("userId").toString())
+					.build();
+			CurrentUserInfo.setUser(user);
+		}
+
 		return grantedAuthorities;
 	}
 
 	/**
 	 * Sets the prefix to use for {@link GrantedAuthority authorities} mapped by this converter.
-	 * Defaults to {@link MyJwtGrantedAuthoritiesConverter#DEFAULT_AUTHORITY_PREFIX}.
+	 * Defaults to {@link CustomJwtGrantedAuthoritiesConverter#DEFAULT_AUTHORITY_PREFIX}.
 	 *
 	 * @param authorityPrefix The authority prefix
 	 * @since 5.2
@@ -57,7 +69,7 @@ public final class MyJwtGrantedAuthoritiesConverter implements Converter<Jwt, Co
 
 	/**
 	 * Sets the name of token claim to use for mapping {@link GrantedAuthority authorities} by this converter.
-	 * Defaults to {@link MyJwtGrantedAuthoritiesConverter#WELL_KNOWN_AUTHORITIES_CLAIM_NAMES}.
+	 * Defaults to {@link CustomJwtGrantedAuthoritiesConverter#WELL_KNOWN_AUTHORITIES_CLAIM_NAMES}.
 	 *
 	 * @param authoritiesClaimName The token claim name to map authorities
 	 * @since 5.2

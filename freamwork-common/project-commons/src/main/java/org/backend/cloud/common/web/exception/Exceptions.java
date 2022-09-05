@@ -13,6 +13,12 @@ public class Exceptions {
     throw new BaseException(message, defaultHttpStatus);
   }
 
+  public static void error(boolean throwException, String message) {
+    if (throwException) {
+      throw new BaseException(message, defaultHttpStatus);
+    }
+  }
+
   public static void error(HttpStatus httpStatus) {
     throw new BaseException(httpStatus);
   }

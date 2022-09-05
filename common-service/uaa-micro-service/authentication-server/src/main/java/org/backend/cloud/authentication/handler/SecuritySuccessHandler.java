@@ -12,12 +12,16 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.backend.cloud.api.client.user.UserServiceClient;
+import org.backend.cloud.authentication.constains.LoginSessionRedisKey;
 import org.backend.cloud.authentication.model.SystemUserDetails;
-import org.backend.cloud.common.web.model.Result;
 import org.backend.cloud.common.utils.JSON;
-import org.backend.cloud.model.user.dto.UsernameAndPasswordDto;
+import org.backend.cloud.common.web.model.Result;
+import org.backend.cloud.model.user.dto.UserLoginInfo;
+import org.backend.cloud.model.user.entity.SystemUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,17 +45,19 @@ public class SecuritySuccessHandler implements AuthenticationSuccessHandler {
   @Autowired
   private RedisTemplate redisTemplate;
 
+  @Autowired
+  private UserServiceClient userServiceClient;
+
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) throws IOException {
 
     // 保存登录信息到Redis(面向用户时，使用有状态的登录)。
     SystemUserDetails userDetails = (SystemUserDetails) authentication.getPrincipal();
-    String token = userDetails.getUser().getUserId().toString();
-    String key = new StringBuffer("user").append(":").append(token).toString();
+    String token = userDetails.getUser().getUserId().toString(); // TODO 这里应该是随机字符串，本地测试，直接用id算了
     // 生成一份jwt，用于资源服务器的授权。
     String jwt = toJwt(userDetails);
-    redisTemplate.opsForValue().set(key, jwt);
+    redisTemplate.opsForValue().set(LoginSessionRedisKey.loginInfoKey(token), jwt);
 
     // 虽然APPLICATION_JSON_UTF8_VALUE过时了，但也要用。因为Postman工具不声明utf-8编码就会出现乱码
     response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -70,16 +76,17 @@ public class SecuritySuccessHandler implements AuthenticationSuccessHandler {
     headMap.put("alg", SignatureAlgorithm.RS256.getValue());//使用RS256签名算法
     headMap.put("typ", "JWT");
 
-    Map body = new HashMap();
-    UsernameAndPasswordDto user = userDetails.getUser();
-    body.put("userId", user.getUserId().toString());
-    body.put("username", user.getUsername());
-    if (user.getUserId() == 1L) {
-      body.put("authorities", "admin");
-    } else if (user.getUserId() == 2L) {
-      body.put("authorities", "admin2");
-    }
+    SystemUser systemUser = userDetails.getUser();
+    Set<String> authorities = userServiceClient
+        .getAuthoritiesByUserId(systemUser.getUserId().toString());
+    UserLoginInfo userLoginInfo = UserLoginInfo.builder()
+        .userId(systemUser.getUserId())
+        .nickName(systemUser.getNickName())
+        .userName(systemUser.getUserName())
+        .authorities(authorities)
+        .build();
 
+    Map body = JSON.parse(JSON.stringify(userLoginInfo), HashMap.class);;
     String jwt = Jwts.builder()
         .setHeader(headMap)
         .setClaims(body)

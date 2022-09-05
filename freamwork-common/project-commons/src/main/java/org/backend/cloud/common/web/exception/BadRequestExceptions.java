@@ -10,6 +10,12 @@ public class BadRequestExceptions {
     Exceptions.error(message, httpStatus);
   }
 
+  public static void error(boolean throwException, String message) {
+    if (throwException) {
+      Exceptions.error(message, httpStatus);
+    }
+  }
+
   public static void error(String message, String errorCode) {
     Exceptions.error(message, httpStatus, errorCode);
   }

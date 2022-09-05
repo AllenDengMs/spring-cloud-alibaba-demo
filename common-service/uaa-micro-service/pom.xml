@@ -15,6 +15,7 @@
   <modules>
     <module>authentication-server</module>
     <module>authorization-client</module>
+    <module>authentication-model</module>
   </modules>
 
 </project>
