@@ -1,7 +1,7 @@
 package org.backend.cloud.authentication.service.impl;
 
 import java.util.Objects;
-import org.backend.cloud.api.client.user.UserServiceClient;
+import org.backend.cloud.authentication.api.client.AuthUserServiceClient;
 import org.backend.cloud.authentication.model.SystemUserDetails;
 import org.backend.cloud.common.web.exception.Exceptions;
 import org.backend.cloud.model.user.entity.SystemUser;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class UsernamePasswordUserDetailsService implements UserDetailsService {
 
   @Autowired
-  private UserServiceClient userServiceClient;
+  private AuthUserServiceClient userServiceClient;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

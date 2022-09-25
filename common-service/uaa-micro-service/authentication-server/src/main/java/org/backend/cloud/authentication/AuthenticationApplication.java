@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@EnableFeignClients(basePackages = {"org.backend.cloud.api.client"})
+@EnableFeignClients(basePackages = {"org.backend.cloud.api.client", "org.backend.cloud.authentication.api.client"})
 @SpringBootApplication
 public class AuthenticationApplication {
 

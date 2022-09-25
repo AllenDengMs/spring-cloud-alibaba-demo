@@ -25,7 +25,12 @@
     </dependency>
     <dependency>
       <groupId>org.backend.cloud</groupId>
-      <artifactId>user-service-api</artifactId>
+      <artifactId>openfegin-spring-cloud-starter</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.backend.cloud</groupId>
+      <artifactId>user-service-model</artifactId>
       <version>${project.version}</version>
     </dependency>
 

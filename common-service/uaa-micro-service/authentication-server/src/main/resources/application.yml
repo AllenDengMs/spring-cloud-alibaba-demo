@@ -1,2 +1,5 @@
 server:
   port: 10000
+spring:
+  main:
+    allow-bean-definition-overriding: true
